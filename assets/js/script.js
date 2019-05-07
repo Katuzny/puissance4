@@ -1,50 +1,58 @@
 var joueur = 1;
-var nbcolonnes = 5;
-var nblignes = 5;
+var nbColonnes = 5;
+var nbLignes = 5;
 var jeu = true;
-var texte ="";
-var plateau=[];
+var texte = "";
+var plateau = [];
 
-for (var i = 0; i < nblignes; i++) {
-	plateau[i] = ;
+for (var i = 0; i < nbLignes; i++) {
+    plateau[i] = [];
+}
+
+newGame();
+
+function newGame(){
+    for (var i = 0; i < nbLignes; i++) {
+        for (var j = 0; j < nbColonnes; j++) {
+            plateau[i][j] = 0;
+        }
+    }
+    joueur = 1;
+    afficheTexteAnnonce("Le jeu commence ! c'est au tour du joueur " + nomDuJoueur(joueur));
+    jeu = true;
+    creerTableau();
+}
+
+function afficheTexteAnnonce(texte){
+    document.getElementById("texteAnnonce").innerHTML = texte;
+}
+
+function nomDuJoueur(numJoueur){
+    if (numJoueur == 1){
+        return ("rouge");
+    }else{
+        return("bleu");
+    }
 }
 
 
-function newgame(){
-	for (var i = 0; i < nblignes; i++) {
-	
-		for (var j = 0; j < nbcolonnes; j++) {
-		plateau[i][j]=[0];
-		}
-	}
-	joueur =1;
-	jeu()=true;
-}
-function affichetexteannonce(argument= "le jeu commence ! c'est au tour du joueur") nomjoueur(joueur){
-	innerhtml = document.getElementByiId = argument
-}
-function nomjoueur (argument){
-	
-	if (argument ==1){
-		return ("rouge");
 
-	}
-	else{
-		return ("bleu");
-	}
-}
-function creertableau() {
-	var
-	for (var i = nbcolonnes - 1; i >= 0; i--) {
-		Things[i]
-		for (var  =  - 1; i >= 0; i--) {
-			Things[i]
-		}
-		if (plateau [i,j] ==1) {
-			
-			}else if (plateau [i,j] ==2) {
-
-				
-		}
-	}
+function creerTableau(){
+   texte = '<table>';
+   for (i = 0; i < nbLignes; i++) {
+       texte += '<tr>';
+       for (j = 0; j < nbColonnes; j++) {
+           texte += '<td onclick="detecteClick('+j+')" id="'+i+'-'+j+'">';
+           if(plateau[i][j] == 1){
+               texte += '<div class="joueur1">';
+           }else if(plateau[i][j] == 2){
+               texte += '<div class="joueur2">';
+           }
+           texte += '</td>';
+       }
+       texte += '</tr>';
+   }
+   texte += '</table>';
+   tableau = document.getElementById('puissance4');
+   tableau.innerHTML = texte;
 }
