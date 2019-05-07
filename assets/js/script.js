@@ -56,3 +56,51 @@ function creerTableau(){
    tableau = document.getElementById('puissance4');
    tableau.innerHTML = texte;
 }
+
+function detecteClick(j){
+  if(verifposition(j) && jeu){
+    var ligneEnCours = poseJeton(j);
+    var verifEnd = puissance4 (ligneEnCours,j,0,0);
+    if (verifEnd)
+      {
+        jeu=false;
+        
+      afficheTexteAnnonce("Le joueur " + nomDuJoueur(joueur) + " a gagné la partie !");
+       
+  }else{
+    if (joueur==1){
+        joueur = 2;
+     } else {
+        joueur = 1;
+    }
+    afficheTexteAnnonce("C'est au tour du joueur " + nomDuJoueur(joueur));
+    }
+  }
+}
+
+function verifposition(j) {
+  if (plateau [0][j]== 0){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function poseJeton(j) {
+  for (var i = nbLignes-1; i >= 0; i--) {
+    if (plateau [i][j]==0){
+      plateau[i][j] = joueur;
+      rafraichisTableau(i, j, joueur);
+       return i;
+    }
+  }
+}
+
+function rafraichisTableau(x, y, i) {
+   document.getElementById(x+"-"+y).innerHTML = "<div class='joueur"+i+"'></div>";
+}
+function puissance4(ligne,colonne,l,c) {
+    console.log("Valeur: "+ligne+" "+colonne+" / increment "+l+" "+c);
+  return false;
+}
