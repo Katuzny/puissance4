@@ -1,9 +1,9 @@
-var joueur = 1;
-var nbColonnes = 5;
-var nbLignes = 5;
-var jeu = true;
-var texte = "";
-var plateau = [];
+var joueur      = 1;
+var nbColonnes  = 5;
+var nbLignes    = 5;
+var jeu         = true;
+var texte       = "";
+var plateau     = [];
 
 for (var i = 0; i < nbLignes; i++) {
     plateau[i] = [];
@@ -18,12 +18,12 @@ function newGame(){
         }
     }
     joueur = 1;
-    afficheTexteAnnonce("Le jeu commence ! c'est au tour du joueur " + nomDuJoueur(joueur));
+    affichetexteAnnonce("Le jeu commence ! c'est au tour du joueur " + nomDuJoueur(joueur));
     jeu = true;
     creerTableau();
 }
 
-function afficheTexteAnnonce(texte){
+function affichetexteAnnonce(texte){
     document.getElementById("texteAnnonce").innerHTML = texte;
 }
 
@@ -65,7 +65,7 @@ function detecteClick(j){
       {
         jeu=false;
         
-      afficheTexteAnnonce("Le joueur " + nomDuJoueur(joueur) + " a gagné la partie !");
+      affichetexteAnnonce("Le joueur " + nomDuJoueur(joueur) + " a gagné la partie !");
        
   }else{
     if (joueur==1){
@@ -73,7 +73,7 @@ function detecteClick(j){
      } else {
         joueur = 1;
     }
-    afficheTexteAnnonce("C'est au tour du joueur " + nomDuJoueur(joueur));
+    affichetexteAnnonce("C'est au tour du joueur " + nomDuJoueur(joueur));
     }
   }
 }
@@ -100,7 +100,33 @@ function poseJeton(j) {
 function rafraichisTableau(x, y, i) {
    document.getElementById(x+"-"+y).innerHTML = "<div class='joueur"+i+"'></div>";
 }
-function puissance4(ligne,colonne,l,c) {
-    console.log("Valeur: "+ligne+" "+colonne+" / increment "+l+" "+c);
-  return false;
+
+function puissance4(lig,col,l,c) {
+    if (c == 0 && l == 0) {
+    console.log("initial Valeurs : " + lig + " "+ col +" / Increment "+ l +" "+ c);
+
+    var va = 1 + puissance4(lig, col-1, 0, -1) + puissance4(lig, col+1, 0, 1); 
+    var vb = 1 + puissance4(lig-1, col, -1, 0) + puissance4(lig+1, col, 1, 0);
+    var vc = 1 + puissance4(lig-1, col-1, -1, -1) + puissance4(lig+1, col+1, 1, 1);
+    var vd = 1 + puissance4(lig-1, col+1, -1, 1) + puissance4(lig+1, col-1, 1, -1);
+
+    console.log(va,vb,vc,vd);
+      if (va >= 4 || vb >= 4 || vc >= 4 || vd >= 4) {
+        return true;    
+      }else{
+        return false;
+      }
+    }
+        if(lig < nbLignes && lig >= 0 && col < nbColonnes && col >= 0){
+          console.log("recu Valeurs :" + lig + " " + col )
+          if (plateau[lig][col] == joueur){
+            return 1 + puissance4(lig + l, col + c, l, c);
+          }else{
+            return 0;
+          } 
+        
+        }
+  return 0;
 }
+
+
